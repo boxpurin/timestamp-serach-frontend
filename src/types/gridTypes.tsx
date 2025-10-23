@@ -1,20 +1,26 @@
 import { TimeStampData } from "../domain/timeStampDataType";
 import { ColDef } from "ag-grid-community";
 import { CustomCellRendererProps } from "ag-grid-react";
-import * as Mui from '@mui/material';
-import { ValueFormatterParams } from 'ag-grid-community';
+import * as Mui from "@mui/material";
+import { ValueFormatterParams } from "ag-grid-community";
 
 // サムネイルURLに動画URLを埋め込む
 const ThumbnailCellRenderer = (params: CustomCellRendererProps<GridRow>) => {
-  if (params.data === undefined) { return <Mui.Box />; }
+  if (params.data === undefined) {
+    return <Mui.Box />;
+  }
   return (
     <Mui.Box>
-      <a href={`https://www.youtube.com/watch?v=${params.data.videoId}&t=${params.data.seconds}`} target="_blank" rel="noreferrer">
+      <a
+        href={`https://www.youtube.com/watch?v=${params.data.videoId}&t=${params.data.seconds}`}
+        target="_blank"
+        rel="noreferrer"
+      >
         <img src={params.data.thumbnailUrl} title={params.data.videoTitle} />
       </a>
     </Mui.Box>
   );
-}
+};
 
 const secondValueFormatter = (params: ValueFormatterParams) => {
   const seconds = params.value as number;
@@ -23,14 +29,16 @@ const secondValueFormatter = (params: ValueFormatterParams) => {
   const s = seconds % 60;
 
   // 各値を2桁にゼロ埋め
-  const padded = (num: number) => String(num).padStart(2, '0');
+  const padded = (num: number) => String(num).padStart(2, "0");
 
   return `${padded(h)}:${padded(m)}:${padded(s)}`;
-}
+};
 
 const dateValueFormatter = (params: ValueFormatterParams) => {
-  return params.value !== undefined ? (params.value as Date).toLocaleString() : "";
-}
+  return params.value !== undefined
+    ? (params.value as Date).toLocaleString()
+    : "";
+};
 
 export const columnsDefs: ColDef<GridRow>[] = [
   {
@@ -91,8 +99,14 @@ export class GridRow {
       this.seconds = timestampData.seconds;
       this.description = timestampData.description;
       this.thumbnailUrl = timestampData.videoDetail?.thumbnailUrl || "";
-      this.publishedAt = timestampData.videoDetail !== undefined ? new Date(timestampData.videoDetail.publishedAt) : undefined;
-      this.actualStartTime = timestampData.videoDetail !== undefined ? new Date(timestampData.videoDetail.actualStartTime) : undefined;
+      this.publishedAt =
+        timestampData.videoDetail !== undefined
+          ? new Date(timestampData.videoDetail.publishedAt)
+          : undefined;
+      this.actualStartTime =
+        timestampData.videoDetail !== undefined
+          ? new Date(timestampData.videoDetail.actualStartTime)
+          : undefined;
     }
   }
 }

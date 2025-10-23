@@ -8,15 +8,19 @@ import { brown, yellow } from "@mui/material/colors";
 
 function App() {
   ModuleRegistry.registerModules([AllCommunityModule]);
-  const theme = React.useMemo(() => Mui.createTheme({
-    palette: {
-      primary: yellow,
-      secondary: brown,
-      background: {
-        default: "#f5f5f5"
-      }
-    }
-  }), []);
+  const theme = React.useMemo(
+    () =>
+      Mui.createTheme({
+        palette: {
+          primary: yellow,
+          secondary: brown,
+          background: {
+            default: "#f5f5f5",
+          },
+        },
+      }),
+    [],
+  );
 
   return (
     <Mui.Box className="App">
