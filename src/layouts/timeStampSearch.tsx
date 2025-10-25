@@ -8,10 +8,11 @@ import {
   TimeStampSearchResult,
 } from "../domain/timeStampDataType";
 import { styled, useMediaQuery } from "@mui/material";
-import { yellow } from "@mui/material/colors";
+import { brown, yellow } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { SearchVideoTimeStamp } from "../api/SearchVideoTimeStamp";
 
-const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
+const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
 
 const defaultSearchQuery: SearchQuery = {
   keyword: "",
@@ -27,7 +28,7 @@ const defaultSearchQuery: SearchQuery = {
 
 export const SearchQueryContext = React.createContext({
   searchQuery: defaultSearchQuery,
-  setSearchQuery: (_: SearchQuery) => {},
+  setSearchQuery: (_: SearchQuery) => { },
   isFetching: false,
   error: null as Error | null,
 });
@@ -55,16 +56,11 @@ const useFetchData = (props?: useFetchDataProps) => {
     setIsFetching(true);
     setError(null);
     try {
-      console.log(query);
-      const response = await fetch(
-        "http://localhost:7700/api/v1/timestamps/search",
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch");
-      }
-      const result: TimeStampSearchResult = await response.json();
+      console.log("start fetch");
+      const result: TimeStampSearchResult = await SearchVideoTimeStamp(query);
       var rows: GridRow[] = Object.values(result.items).map(
         (ts: TimeStampData, i: number) => {
+          console.log(ts);
           var row = new GridRow(i, ts);
           return row;
         },
@@ -122,6 +118,7 @@ const TimeStampSearch: React.FC<React.PropsWithChildren> = ({ children }) => {
       createTheme({
         palette: {
           primary: yellow,
+          secondary: brown,
           mode,
         },
       }),

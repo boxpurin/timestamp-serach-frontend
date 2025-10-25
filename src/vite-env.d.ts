@@ -8,7 +8,7 @@ interface ViteTypeOptions {
 
 interface ImportMetaEnv {
     readonly VITE_APP_TITLE: string;
-    readonly API_SERVER_HOST: string;
+    readonly VITE_API_SERVER_HOST: string;
     readonly API_KEY: string;
     // その他の環境変数...
 }

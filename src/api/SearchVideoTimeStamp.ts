@@ -1,9 +1,10 @@
 import { SearchQuery } from "../types/searchQuery";
 import { ApiResponseError } from "../types/Error";
+import { TimeStampSearchResult } from "../domain/timeStampDataType";
 
 
 /// RESTful API サーバーからタイムスタンプ情報を取得するAPI
-export async function SearchVideoTimeStamp<T>(params: SearchQuery): Promise<[T]> {
+export async function SearchVideoTimeStamp(params: SearchQuery): Promise<TimeStampSearchResult> {
     let q = new URLSearchParams();
     q.append("q", params.keyword);
     q.append("page", params.page.toString());
@@ -26,9 +27,12 @@ export async function SearchVideoTimeStamp<T>(params: SearchQuery): Promise<[T]>
         q.append("startTo", params.endDate.toISOString());
     }
 
-    q.append("part", "videoTitle,thumbnailUrl,actualStartAt");
+    q.append("parts", "videoDetails");
 
-    var req = new Request(`${import.meta.env.API_SERVER_HOST}/api/v1/timestamps/search?${q}`,
+    console.log(import.meta.env.VITE_API_SERVER_HOST);
+    console.log(q);
+
+    var req = new Request(`${import.meta.env.VITE_API_SERVER_HOST}/api/v1/timestamp/search?${q}`,
         {
             method: "GET",
             headers: {
@@ -39,12 +43,12 @@ export async function SearchVideoTimeStamp<T>(params: SearchQuery): Promise<[T]>
         }
     );
 
-    const res = (await fetch(req));
+    const res = await fetch(req);
     if (!res.ok) {
         throw new ApiResponseError(res.status);
     }
 
-    const items: [T] = await res.json();
+    const ret: TimeStampSearchResult = await res.json();
 
-    return items;
+    return ret;
 }

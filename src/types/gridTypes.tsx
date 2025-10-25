@@ -74,7 +74,7 @@ export const columnsDefs: ColDef<GridRow>[] = [
   },
   {
     headerName: "公開/配信日時",
-    field: "actualStartTime",
+    field: "actualStartAt",
     width: 180,
     valueFormatter: dateValueFormatter,
     cellStyle: { textAlign: "left", alignContent: "center" },
@@ -89,24 +89,27 @@ export class GridRow {
   seconds: number = 0;
   description: string = "";
   publishedAt?: Date = undefined;
-  actualStartTime?: Date = undefined;
+  actualStartAt?: Date = undefined;
 
   constructor(id?: number, timestampData?: TimeStampData) {
+    console.log(timestampData?.videoDetails)
     if (timestampData !== undefined) {
       this.id = id || 0;
       this.videoId = timestampData.videoId;
-      this.videoTitle = timestampData.videoDetail?.videoTitle || "";
-      this.seconds = timestampData.seconds;
+      this.videoTitle = timestampData.videoDetails?.title || "";
+      this.seconds = timestampData.elapsedTime;
       this.description = timestampData.description;
-      this.thumbnailUrl = timestampData.videoDetail?.thumbnailUrl || "";
+      this.thumbnailUrl = timestampData.videoDetails?.thumbnailUrl || "";
       this.publishedAt =
-        timestampData.videoDetail !== undefined
-          ? new Date(timestampData.videoDetail.publishedAt)
+        timestampData.videoDetails !== undefined
+          ? new Date(timestampData.videoDetails.publishedAt)
           : undefined;
-      this.actualStartTime =
-        timestampData.videoDetail !== undefined
-          ? new Date(timestampData.videoDetail.actualStartTime)
+      this.actualStartAt =
+        timestampData.videoDetails !== undefined
+          ? new Date(timestampData.videoDetails.actualStartAt)
           : undefined;
     }
+
+    console.log(this);
   }
 }
