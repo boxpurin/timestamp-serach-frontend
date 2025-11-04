@@ -33,7 +33,7 @@ export const SearchQueryContext = React.createContext({
   error: null as Error | null,
 });
 
-const Main = styled("main")(({ theme }) => ({
+const Main = styled("main")(({ }) => ({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
@@ -88,7 +88,7 @@ const useFetchData = (props?: useFetchDataProps) => {
   };
 };
 
-const TimeStampSearch: React.FC<React.PropsWithChildren> = ({ children }) => {
+const TimeStampSearch: React.FC<React.PropsWithChildren> = ({ }) => {
   const [mode, setMode] = React.useState<"light" | "dark">("light");
   const colorMode = React.useMemo(
     () => ({
