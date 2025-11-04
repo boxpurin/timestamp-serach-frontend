@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 .env
+
+# --- Firebase CLI 関連 ---
+.firebase/
+firebase-debug.log
