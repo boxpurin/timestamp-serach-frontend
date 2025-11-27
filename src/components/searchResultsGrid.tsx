@@ -1,5 +1,6 @@
 import { GridRow } from "../types/gridTypes";
 import * as Mui from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 import React from "react";
 import { AgGridReact } from "ag-grid-react";
 import { columnsDefs } from "../types/gridTypes";
@@ -80,6 +81,15 @@ const GridPagination = (props: GridPaginationProps) => {
 
 const SearchResultsGrid = (props: SearchResultProps) => {
   const context = React.useContext(SearchQueryContext);
+  const { error } = context;
+  if (error) {
+    return (
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        {error.message}
+      </Alert>
+    );
+  }
   return (
     <Mui.Box
       sx={{
@@ -93,7 +103,7 @@ const SearchResultsGrid = (props: SearchResultProps) => {
         <GridPagination
           page={context.searchQuery.page}
           onPageChange={props.onPageChange}
-          pageSize={context.searchQuery.totalPages}
+          pageSize={.searchQuery.totalPages}
           isFetching={context.isFetching}
         />
         <AgGridReact
@@ -106,5 +116,4 @@ const SearchResultsGrid = (props: SearchResultProps) => {
     </Mui.Box>
   );
 };
-
 export default SearchResultsGrid;
