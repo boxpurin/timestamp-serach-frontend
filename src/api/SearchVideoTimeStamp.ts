@@ -31,11 +31,11 @@ export async function SearchVideoTimeStamp(params: SearchQuery): Promise<TimeSta
 
     console.log(q);
 
-    var req = new Request(`timestamp/search?${q}`,
+    var req = new Request(`/api/v1/timestamp/search?${q}`,
         {
             method: "GET",
             headers: {
-                Authorization: `${import.meta.env.API_KEY}`
+                Authorization: `${import.meta.env.VITE_API_KEY || ''}`
             },
             mode: "cors",
             cache: "default"

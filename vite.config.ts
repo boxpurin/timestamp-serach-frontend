@@ -14,7 +14,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api\/v1/, '/api/v1')
       }
     }
-
   },
   plugins: [react()],
   base: "./",
