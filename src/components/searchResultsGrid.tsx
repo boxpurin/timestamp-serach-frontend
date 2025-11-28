@@ -21,7 +21,7 @@ export interface SearchResultProps {
 }
 
 const GridPagination = (props: GridPaginationProps) => {
-  const onPageChange = props.onPageChange || ((_: number) => {});
+  const onPageChange = props.onPageChange || ((_: number) => { });
   const page = React.useMemo(() => props.page || 1, [props.page]);
   const pageSize = props.pageSize || 1;
 
@@ -103,7 +103,7 @@ const SearchResultsGrid = (props: SearchResultProps) => {
         <GridPagination
           page={context.searchQuery.page}
           onPageChange={props.onPageChange}
-          pageSize={.searchQuery.totalPages}
+          pageSize={context.searchQuery.totalPages}
           isFetching={context.isFetching}
         />
         <AgGridReact
