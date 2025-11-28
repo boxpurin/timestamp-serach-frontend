@@ -29,10 +29,9 @@ export async function SearchVideoTimeStamp(params: SearchQuery): Promise<TimeSta
 
     q.append("parts", "videoDetails");
 
-    console.log(import.meta.env.VITE_API_SERVER_HOST);
     console.log(q);
 
-    var req = new Request(`${import.meta.env.VITE_API_SERVER_HOST}/api/v1/timestamp/search?${q}`,
+    var req = new Request(`timestamp/search?${q}`,
         {
             method: "GET",
             headers: {
