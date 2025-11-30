@@ -10,7 +10,7 @@ export interface TimeStampVideoDetail {
   tags: [string];
   thumbnailUrl: string;
   publishedAt: Date;
-  actualStartTime: Date;
+  actualStartAt: Date;
 }
 
 export interface TimeStampSearchResult {

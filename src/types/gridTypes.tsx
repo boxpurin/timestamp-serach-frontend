@@ -74,7 +74,7 @@ export const columnsDefs: ColDef<GridRow>[] = [
   },
   {
     headerName: "公開/配信日時",
-    field: "actualStartTime",
+    field: "actualStartAt",
     width: 180,
     valueFormatter: dateValueFormatter,
     cellStyle: { textAlign: "left", alignContent: "center" },
@@ -89,7 +89,7 @@ export class GridRow {
   seconds: number = 0;
   description: string = "";
   publishedAt?: Date = undefined;
-  actualStartTime?: Date = undefined;
+  actualStartAt?: Date = undefined;
 
   constructor(id?: number, timestampData?: TimeStampData) {
     console.log(timestampData?.videoDetails)
@@ -104,9 +104,9 @@ export class GridRow {
         timestampData.videoDetails !== undefined
           ? new Date(timestampData.videoDetails.publishedAt)
           : undefined;
-      this.actualStartTime =
+      this.actualStartAt =
         timestampData.videoDetails !== undefined
-          ? new Date(timestampData.videoDetails.actualStartTime)
+          ? new Date(timestampData.videoDetails.actualStartAt)
           : undefined;
     }
 
