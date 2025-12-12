@@ -6,6 +6,7 @@ import { AgGridReact } from "ag-grid-react";
 import { columnsDefs } from "../types/gridTypes";
 import { SearchQueryContext } from "../layouts/timeStampSearch";
 import { lightGridTheme, darkGridTheme } from "../../styles/theme";
+import { useVideoModal } from "./videoModal";
 
 export interface GridPaginationProps {
   page?: number;
@@ -80,11 +81,27 @@ const GridPagination = (props: GridPaginationProps) => {
 };
 
 const SearchResultsGrid = (props: SearchResultProps) => {
+  const [ModalWindow, setTimeStamp, openModal, _closeModal, _isOpen] = useVideoModal();
+
+  const handleRowClicked = React.useCallback(
+    (event: any) => { // event type is RowClickedEvent
+      if (!event.data) return;
+      const { videoId, seconds } = event.data as GridRow;
+      setTimeStamp({ videoId, elapsed: seconds });
+      openModal();
+    },
+    [setTimeStamp, openModal],
+  );
+
   const context = React.useContext(SearchQueryContext);
   const { error } = context;
   if (error) {
     return (
-      <Alert severity="error">
+      <Alert severity="error" sx={{
+        mt: 4,
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
         <AlertTitle>Error</AlertTitle>
         {error.message}
       </Alert>
@@ -110,8 +127,10 @@ const SearchResultsGrid = (props: SearchResultProps) => {
           theme={props.mode === "light" ? lightGridTheme : darkGridTheme}
           columnDefs={columnsDefs}
           rowData={props.rows}
+          onRowClicked={handleRowClicked}
           loading={context.isFetching}
         />
+        <ModalWindow />
       </Mui.Container>
     </Mui.Box>
   );

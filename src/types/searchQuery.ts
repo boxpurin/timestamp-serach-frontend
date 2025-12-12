@@ -10,5 +10,5 @@ export type SearchQuery = {
   endDate: Date;
 };
 
-export const searchPattern = ["keyword", "dateRange", "dateIn"] as const;
+export const searchPattern = ["keyword", "dateIn", "dateRange"] as const;
 export type SearchPattern = (typeof searchPattern)[number]; // "keyword" | "dateIn"

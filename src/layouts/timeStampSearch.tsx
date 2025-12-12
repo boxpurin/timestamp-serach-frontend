@@ -20,7 +20,7 @@ const defaultSearchQuery: SearchQuery = {
   targetContentType: "",
   allowDateRange: false,
   page: 1,
-  perPage: 100,
+  perPage: 25,
   totalPages: 1,
   startDate: new Date(),
   endDate: new Date(),
@@ -68,6 +68,9 @@ const useFetchData = (props?: useFetchDataProps) => {
 
       setData(rows);
       setIsFetching(false);
+      setSearchQuery({ ...query, totalPages: result.totalPages, page: result.page });
+      console.log("fetch completed");
+
       if (props && props.onCompleted) {
         props.onCompleted();
       }

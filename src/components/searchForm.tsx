@@ -174,7 +174,7 @@ const SearchForm: React.FC<SearchFormProps> = (props: SearchFormProps) => {
   return (
     <Mui.Box className="App-Header" sx={{ verticalAlign: "center" }}>
       <Mui.Typography component="h2" variant="h6" color="primary">
-        なんかタイトル
+        ふぁのタイムスタンプ
       </Mui.Typography>
       <Mui.FormControl sx={{ width: "480px" }}>
         <Mui.Tabs
